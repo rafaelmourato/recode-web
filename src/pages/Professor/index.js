@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Table } from 'reactstrap';
+import { Table, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import Page from '../../components/Page';
 import api from '../../services/api';
 
-export default () => {
+export default ({ history }) => {
   const [professors, setProfessors] = useState([]);
 
   useEffect(() => {
@@ -15,6 +15,10 @@ export default () => {
       console.log(error);
     });
   }, []);
+
+  const onDelete = () => {
+    // implemente a lógica para remover um professor
+  };
 
   return (
     <Page title="Professor">
@@ -34,7 +38,10 @@ export default () => {
               <td>{professor.id}</td>
               <td><Link to={`/professor/${professor.id}`}>{professor.name}</Link></td>
               <td>{professor.cpf}</td>
-              <td>Aaa</td>
+              <td>
+                <Button onClick={() => history.push(`/professor/${professor.id}`)} className="mr-2">Edit</Button>
+                <Button onClick={onDelete} color="danger">Delete</Button>
+              </td>
             </tr>
           ))}
         </tbody>
