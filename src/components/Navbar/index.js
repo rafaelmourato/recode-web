@@ -29,7 +29,7 @@ const NavbarComponent = () => {
                 </NavItem>
               );
             }
-            return <div />;
+            return <div key={index} />;
           })}
         </Nav>
       </Collapse>
