@@ -1,23 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Page from '../../components/Page';
 import api from '../../services/api';
 
-export default ({ history }) => {
+export default () => {
   const [professors, setProfessors] = useState([]);
 
-  useEffect(() => {
+  const getProfessors = () => {
     api.get('/professor').then((response) => {
       const { data } = response;
       setProfessors(data);
     }).catch((error) => {
       console.log(error);
     });
+  };
+
+  useEffect(() => {
+    getProfessors();
   }, []);
 
-  const onDelete = () => {
-    // implemente a lógica para remover um professor
+  const onDelete = (id) => {
+    if (window.confirm('Are you sure you want to delete this item?')) {
+      api.delete(`/professor/${id}`).then(() => {
+        const professorList = professors.filter((professor) => professor.id !== id);
+        setProfessors(professorList);
+        toast.success('Professor deleted with success');
+      }).catch(() => {
+        toast.error('Unexpected Error');
+      });
+    }
   };
 
   return (
@@ -39,8 +52,7 @@ export default ({ history }) => {
               <td><Link to={`/professor/${professor.id}`}>{professor.name}</Link></td>
               <td>{professor.cpf}</td>
               <td>
-                <Button onClick={() => history.push(`/professor/${professor.id}`)} className="mr-2">Edit</Button>
-                <Button onClick={onDelete} color="danger">Delete</Button>
+                <Button onClick={() => onDelete(professor.id)} color="danger">Delete</Button>
               </td>
             </tr>
           ))}
