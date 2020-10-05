@@ -42,7 +42,7 @@ export default () => {
           </tr>
         </thead>
         <tbody>
-          {professors.map((professor, index) => (
+          {professors.map((professor) => (
             <tr key={professor.id}>
               <td>{professor.id}</td>
               <td><Link to={`/professor/${professor.id}`}>{professor.name}</Link></td>

@@ -4,12 +4,19 @@ import Professor from '../pages/Professor';
 import EditProfessor from '../pages/Professor/edit';
 import Course from '../pages/Course';
 import Home from '../pages/Home';
+import EditCourse from '../pages/Course/edit';
 
 const routes = [{
   name: 'Professor',
   component: Professor,
   path: '/professor',
   navbar: true,
+},
+{
+  name: 'Edit Course',
+  component: EditCourse,
+  path: '/course/:id',
+  navbar: false,
 },
 {
   name: 'Edit Professor',

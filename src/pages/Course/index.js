@@ -43,7 +43,7 @@ export default () => {
           {courses.map((course) => (
             <tr key={course.id}>
               <th>{course.id}</th>
-              <th>{course.name}</th>
+              <th><Link to={`/course/${course.id}`}>{course.name}</Link></th>
               <th><Button onClick={() => onDelete(course.id)} color="danger">Delete</Button></th>
             </tr>
           ))}
