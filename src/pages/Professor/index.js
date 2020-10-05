@@ -8,17 +8,13 @@ import api from '../../services/api';
 export default () => {
   const [professors, setProfessors] = useState([]);
 
-  const getProfessors = () => {
+  useEffect(() => {
     api.get('/professor').then((response) => {
       const { data } = response;
       setProfessors(data);
     }).catch((error) => {
       console.log(error);
     });
-  };
-
-  useEffect(() => {
-    getProfessors();
   }, []);
 
   const onDelete = (id) => {
@@ -47,7 +43,7 @@ export default () => {
         </thead>
         <tbody>
           {professors.map((professor, index) => (
-            <tr key={index}>
+            <tr key={professor.id}>
               <td>{professor.id}</td>
               <td><Link to={`/professor/${professor.id}`}>{professor.name}</Link></td>
               <td>{professor.cpf}</td>
